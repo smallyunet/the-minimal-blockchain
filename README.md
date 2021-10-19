@@ -6,3 +6,10 @@ In progress.
 
 - No third modules
 
+## Quick start
+
+```
+go run .
+```
+
+
