@@ -15,7 +15,7 @@ func server() {
 	if err != nil {
 		fmt.Println("listen error", err)
 	}
-
+	fmt.Println("node is running...")
 	for {
 		conn, err := ln.Accept()
 		if err != nil {
@@ -30,7 +30,7 @@ func handleConnection(conn net.Conn) {
 }
 
 func client() {
-	conn, err := net.Dial("tcp", "127.0.0.1:25000")
+	conn, err := net.Dial("tcp", ":25000")
 	if err != nil {
 		fmt.Println("dial error", err)
 		return
