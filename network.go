@@ -1,13 +1,14 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"net"
 )
 
-func init() {
+var RouteTable []string
 
+func init() {
+	RouteTable = []string{"127.0.0.1:25000"}
 }
 
 func server() {
@@ -30,15 +31,23 @@ func handleConnection(conn net.Conn) {
 }
 
 func client() {
-	conn, err := net.Dial("tcp", ":25000")
-	if err != nil {
-		fmt.Println("dial error", err)
+	conn := dial(RouteTable[0])
+	if conn == nil {
 		return
 	}
-	fmt.Fprintf(conn, "GET / HTTP/1.0\r\n\r\n")
-	status, err := bufio.NewReader(conn).ReadString('\n')
+	// fmt.Fprintf(conn, "GET / HTTP/1.0\r\n\r\n")
+	// status, err := bufio.NewReader(conn).ReadString('\n')
+	// if err != nil {
+	// 	fmt.Println("dial error", err)
+	// }
+	// fmt.Println(status)
+}
+
+func dial(address string) net.Conn {
+	conn, err := net.Dial("tcp", ":25000")
 	if err != nil {
-		fmt.Println("dial error", err)
+		fmt.Println("dial err:", err)
+		return nil
 	}
-	fmt.Println(status)
+	return conn
 }

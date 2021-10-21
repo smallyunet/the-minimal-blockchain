@@ -120,3 +120,5 @@ modules.xml
 
 gitpush.sh
 data
+start.sh
+test.sh
