@@ -4,7 +4,8 @@ In progress.
 
 ## Feature
 
-- No third party modules
+- No third-party modules
+- A little unstable philosophy
 
 ## Quick start
 
