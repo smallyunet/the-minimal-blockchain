@@ -64,7 +64,7 @@ func GetHeight() (uint64, error) {
 		log.Fatal(err)
 		return 0, err
 	}
-	// TODO
+	// TODO filter end without .json
 	return uint64(len(files)) - 1, nil
 }
 

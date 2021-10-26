@@ -2,17 +2,27 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net"
 )
 
 var RouteTable []string
 
+const DEFAULT_PORT string = "25000"
+
 func init() {
-	RouteTable = []string{"127.0.0.1:25000"}
+	ips, err := net.LookupIP("how.gs")
+	if err != nil {
+		log.Fatalln(err)
+		return
+	}
+	for _, ip := range ips {
+		RouteTable = append(RouteTable, ip.String()+DEFAULT_PORT)
+	}
 }
 
 func server() {
-	ln, err := net.Listen("tcp", ":25000")
+	ln, err := net.Listen("tcp", ":"+DEFAULT_PORT)
 	if err != nil {
 		fmt.Println("listen error", err)
 	}
