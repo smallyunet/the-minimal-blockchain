@@ -4,25 +4,26 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"strconv"
 )
 
 var RouteTable []string
 
-const DEFAULT_PORT string = "25000"
-
 func init() {
-	ips, err := net.LookupIP("how.gs")
+	ips, err := net.LookupIP(SEED_DOMAIN)
 	if err != nil {
 		log.Fatalln(err)
 		return
 	}
+	port := strconv.Itoa(DEFAULT_PORT)
 	for _, ip := range ips {
-		RouteTable = append(RouteTable, ip.String()+DEFAULT_PORT)
+		RouteTable = append(RouteTable, ip.String()+port)
 	}
 }
 
 func server() {
-	ln, err := net.Listen("tcp", ":"+DEFAULT_PORT)
+	port := strconv.Itoa(DEFAULT_PORT)
+	ln, err := net.Listen("tcp", ":"+port)
 	if err != nil {
 		fmt.Println("listen error", err)
 	}

@@ -2,8 +2,8 @@ package main
 
 type Block struct {
 	Prev    string `json:"prev"`
-	Height  uint64 `json:"Height"`
-	Payload string `json:"Payload"`
+	Height  uint64 `json:"height"`
+	Payload string `json:"payload"`
 }
 
 func init() {
