@@ -8,12 +8,13 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"the-minimal-blockchain/config"
 )
 
 var path string
 
 func init() {
-	path = "./data/"
+	path = config.DEFAULT_DATA_PATH
 }
 
 func Set(height uint64, block *Block) error {
