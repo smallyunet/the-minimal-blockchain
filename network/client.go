@@ -9,7 +9,7 @@ import (
 )
 
 func Client() {
-	conn, err := net.Dial("tcp", ":"+port)
+	conn, err := net.Dial("tcp", ":"+defaultPort)
 	if err != nil {
 		log.Fatalln(err)
 	}

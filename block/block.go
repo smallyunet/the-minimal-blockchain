@@ -1,4 +1,4 @@
-package main
+package block
 
 type Block struct {
 	Prev    string `json:"prev"`

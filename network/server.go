@@ -6,7 +6,7 @@ import (
 )
 
 func Server() {
-	ln, err := net.Listen("tcp", ":25000")
+	ln, err := net.Listen("tcp", ":" + localPort)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -22,6 +22,7 @@ func Server() {
 
 func handleConnection(conn net.Conn) {
 	buf := make([]byte, 1024)
+	// TODO large buff
 	n, err := conn.Read(buf)
 	if err != nil {
 		log.Fatalln(err)

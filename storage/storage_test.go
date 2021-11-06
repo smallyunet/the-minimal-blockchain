@@ -1,7 +1,8 @@
-package main
+package storage
 
 import (
 	"testing"
+	"the-minimal-blockchain/block"
 )
 
 func TestGetHeight(t *testing.T) {
@@ -13,7 +14,7 @@ func TestGetHeight(t *testing.T) {
 }
 
 func TestSet(t *testing.T) {
-	block := &Block{
+	block := &block.Block{
 		Payload: "Hello World",
 	}
 	err := Set(1, block)
@@ -31,7 +32,7 @@ func TestGet(t *testing.T) {
 }
 
 func TestAdd(t *testing.T) {
-	block := &Block{
+	block := &block.Block{
 		Payload: "Hello World",
 	}
 	err := Add(block)

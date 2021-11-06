@@ -1,4 +1,4 @@
-package main
+package storage
 
 import (
 	"encoding/json"
@@ -8,7 +8,9 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"the-minimal-blockchain/block"
 	"the-minimal-blockchain/config"
+	"the-minimal-blockchain/hash"
 )
 
 var path string
@@ -17,16 +19,16 @@ func init() {
 	path = config.DEFAULT_DATA_PATH
 }
 
-func Set(height uint64, block *Block) error {
+func Set(height uint64, block *block.Block) error {
 	if height == 0 {
 		return errors.New("height must larger then zero")
 	}
-	ph := uint64(height) - uint64(1)
+	ph := height - uint64(1)
 	pb, err := Get(ph)
 	if err != nil {
 		return err
 	}
-	phv, err := GetHashCode(pb)
+	phv, err := hash.GetHashCode(pb)
 	if err != nil {
 		return err
 	}
@@ -44,14 +46,14 @@ func Set(height uint64, block *Block) error {
 	return nil
 }
 
-func Get(height uint64) (*Block, error) {
+func Get(height uint64) (*block.Block, error) {
 	p := getFilePath(height)
 	b, err := os.ReadFile(p)
 	if err != nil {
 		log.Fatalln(err)
 		return nil, err
 	}
-	var block Block
+	var block block.Block
 	err = json.Unmarshal(b, &block)
 	if err != nil {
 		return nil, err
@@ -69,7 +71,7 @@ func GetHeight() (uint64, error) {
 	return uint64(len(files)) - 1, nil
 }
 
-func Add(block *Block) error {
+func Add(block *block.Block) error {
 	ph, err := GetHeight()
 	if err != nil {
 		return err
@@ -79,7 +81,7 @@ func Add(block *Block) error {
 	if err != nil {
 		return err
 	}
-	phv, err := GetHashCode(pb)
+	phv, err := hash.GetHashCode(pb)
 	if err != nil {
 		return err
 	}
