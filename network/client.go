@@ -14,7 +14,7 @@ func Client() {
 		log.Fatalln(err)
 	}
 	defer conn.Close()
-	fmt.Fprintf(conn, "test")
+	fmt.Fprintf(conn, "testtesttest")
 	var buf bytes.Buffer
 	io.Copy(&buf, conn)
 	log.Println(buf.String())

@@ -6,7 +6,7 @@ import (
 )
 
 func Server() {
-	ln, err := net.Listen("tcp", ":" + localPort)
+	ln, err := net.Listen("tcp", ":"+localPort)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -21,14 +21,21 @@ func Server() {
 }
 
 func handleConnection(conn net.Conn) {
-	buf := make([]byte, 1024)
-	// TODO large buff
-	n, err := conn.Read(buf)
-	if err != nil {
-		log.Fatalln(err)
-		return
+	// TODO magic number
+	// https://stackoverflow.com/questions/24339660/read-whole-data-with-golang-net-conn-read
+	buf := make([]byte, 0, 4096)
+	tmp := make([]byte, 256)
+	for {
+		n, err := conn.Read(tmp)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		buf = append(buf, tmp[:n]...)
+		if n < 256 {
+			break
+		}
 	}
 	defer conn.Close()
-	log.Println(string(buf[:n]))
+	log.Println(string(buf))
 	conn.Write([]byte("Hello, World!"))
 }
