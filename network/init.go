@@ -4,7 +4,8 @@ import (
 	"log"
 	"net"
 	"strconv"
-	"the-minimal-blockchain/config"
+
+	"github.com/smallyunet/tmb/config"
 )
 
 var RouteTable = map[string]uint64{

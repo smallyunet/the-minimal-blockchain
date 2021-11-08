@@ -8,9 +8,10 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	"the-minimal-blockchain/block"
-	"the-minimal-blockchain/config"
-	"the-minimal-blockchain/hash"
+
+	"github.com/smallyunet/tmb/block"
+	"github.com/smallyunet/tmb/config"
+	"github.com/smallyunet/tmb/hash"
 )
 
 var path string

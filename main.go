@@ -1,8 +1,9 @@
 package main
 
 import (
-	"the-minimal-blockchain/network"
 	"time"
+
+	"github.com/smallyunet/tmb/network"
 )
 
 func init() {

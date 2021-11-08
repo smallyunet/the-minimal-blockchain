@@ -5,5 +5,4 @@ import (
 )
 
 func TestGetHashCode(t *testing.T) {
-	// TODO
 }

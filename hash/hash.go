@@ -2,7 +2,8 @@ package hash
 
 import (
 	"strconv"
-	"the-minimal-blockchain/block"
+
+	"github.com/smallyunet/tmb/block"
 )
 
 func GetHashCode(block *block.Block) (string, error) {

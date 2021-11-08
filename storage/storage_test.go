@@ -2,7 +2,8 @@ package storage
 
 import (
 	"testing"
-	"the-minimal-blockchain/block"
+
+	"github.com/smallyunet/tmb/block"
 )
 
 func TestGetHeight(t *testing.T) {
