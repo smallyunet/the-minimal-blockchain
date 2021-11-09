@@ -8,11 +8,19 @@ import (
 	"github.com/smallyunet/tmb/config"
 )
 
+// tcp buffer max size
+const tcpBufferSize = config.TCP_BUFFER_SIZE
+
+// {address: timestamp}
 var RouteTable = map[string]uint64{
 	"127.0.0.1:25000": 0,
 	"127.0.0.1:25001": 0,
 }
+
+// port of whole network default define
 var defaultPort string
+
+// port of local node start
 var localPort string
 
 func init() {
@@ -32,5 +40,5 @@ func init() {
 		addr := ip.String() + ":" + defaultPort
 		RouteTable[addr] = 0
 	}
-	log.Println("RouteTable:", RouteTable)
+	log.Println("RouteTable initialized size:", len(RouteTable))
 }
