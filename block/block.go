@@ -6,6 +6,8 @@ type Block struct {
 	Payload string `json:"payload"`
 }
 
+var DataCache = make(map[string]string)
+
 func init() {
 
 }
