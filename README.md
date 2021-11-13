@@ -15,4 +15,18 @@ In progress.
 go run .
 ```
 
+## HTTP API
 
+|Path|HTTP Method|Description|
+|--|--|--|
+|/post|POST|Post data to node|
+
+## API Example
+
+### /post
+```
+curl -X POST \
+    -H "Content-Type: application/json" \
+    -d '{"key": "value"}' \
+    http://127.0.0.1:25001/post
+```
