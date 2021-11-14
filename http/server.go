@@ -35,8 +35,12 @@ func post(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	for k, v := range m {
-		block.DataCache[k] = v
+		block.DataCache = append(block.DataCache, block.KeyValue{
+			Key:   k,
+			Value: v,
+		})
 	}
+	block.DataMsg <- len(m)
 	log.Println("DataCache size:", len(block.DataCache))
 	write(w, "Service accepted the data.")
 }
