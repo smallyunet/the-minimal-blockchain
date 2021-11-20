@@ -11,9 +11,28 @@ In progress.
 
 ## Quick start
 
+Start single node in local:
+
 ```
 go run .
 ```
+
+Start a three node group for test:
+
+```
+
+```
+
+## Configuration
+
+You change the config by modifying the const in the "config/config.go" or setup environment variable.
+
+Support environment variable list:
+
+```
+
+```
+
 
 ## HTTP API
 
