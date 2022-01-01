@@ -20,7 +20,14 @@ go run .
 Start a three node group for test:
 
 ```
+export localPort=25000
+go run .
 
+export localPort=25001
+go run .
+
+export localPort=25002
+go run .
 ```
 
 ## Configuration
@@ -29,10 +36,9 @@ You change the config by modifying the const in the "config/config.go" or setup 
 
 Support environment variable list:
 
-```
-
-```
-
+| Variable name | Description |
+| -- | -- |
+| localPort | Node port |
 
 ## HTTP API
 

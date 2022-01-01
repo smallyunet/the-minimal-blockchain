@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	"github.com/smallyunet/tmb/config"
+	"github.com/smallyunet/tmb/util"
 )
 
 // tcp buffer max size
@@ -41,4 +42,13 @@ func init() {
 		RouteTable[addr] = 0
 	}
 	log.Println("RouteTable initialized size:", len(RouteTable))
+
+	injuctEnvVar()
+}
+
+func injuctEnvVar() {
+	value, ok := util.GetEnvVar("localPort")
+	if ok {
+		localPort = value
+	}
 }
