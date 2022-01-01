@@ -10,15 +10,8 @@ import (
 	"strings"
 
 	"github.com/smallyunet/tmb/block"
-	"github.com/smallyunet/tmb/config"
 	"github.com/smallyunet/tmb/hash"
 )
-
-var path string
-
-func init() {
-	path = config.DEFAULT_DATA_PATH
-}
 
 func Set(height uint64, block *block.Block) error {
 	if height == 0 {
@@ -69,7 +62,7 @@ func GetHeight() (uint64, error) {
 		return 0, err
 	}
 	// TODO filter end without .json
-	return uint64(len(files)) - 1, nil
+	return uint64(len(files)), nil
 }
 
 func Add(block *block.Block) error {

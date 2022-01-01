@@ -20,13 +20,13 @@ go run .
 Start a three node group for test:
 
 ```
-export localPort=25000
+export LocalPort=25000 DataPath=data1 HTTPPort=25010
 go run .
 
-export localPort=25001
+export LocalPort=25001 DataPath=data2 HTTPPort=25011
 go run .
 
-export localPort=25002
+export LocalPort=25002 DataPath=data3 HTTPPort=25012
 go run .
 ```
 
@@ -38,7 +38,9 @@ Supported environment variable list:
 
 | Variable name | Description |
 | -- | -- |
-| localPort | Node port |
+| LocalPort | Node local port |
+| DataPath | Block data path |
+| HTTPPort | Node http por |
 
 ## HTTP API
 
@@ -49,9 +51,10 @@ Supported environment variable list:
 ## API Example
 
 ### /post
+
 ```
 curl -X POST \
     -H "Content-Type: application/json" \
     -d '{"key": "value"}' \
-    http://127.0.0.1:25001/post
+    http://127.0.0.1:25010/post
 ```

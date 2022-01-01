@@ -47,7 +47,7 @@ func init() {
 }
 
 func injuctEnvVar() {
-	value, ok := util.GetEnvVar("localPort")
+	value, ok := util.GetEnvVar("LocalPort")
 	if ok {
 		localPort = value
 	}

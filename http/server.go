@@ -12,7 +12,7 @@ import (
 func Server() {
 	http.HandleFunc("/", root)
 	http.HandleFunc("/post", post)
-	err := http.ListenAndServe(":25001", nil)
+	err := http.ListenAndServe(":"+httpPort, nil)
 	if err != nil {
 		log.Fatal(err)
 	}

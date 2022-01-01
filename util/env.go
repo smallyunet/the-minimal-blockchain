@@ -1,7 +1,6 @@
 package util
 
 import (
-	"fmt"
 	"os"
 	"strings"
 )
@@ -24,10 +23,10 @@ func freshCache() {
 
 func GetEnvVar(name string) (string, bool) {
 	value, ok := variables[name]
-	if !ok {
-		freshCache()
+	if ok {
+		return value, ok
 	}
+	freshCache()
 	value, ok = variables[name]
-	fmt.Println(variables)
 	return value, ok
 }
