@@ -32,7 +32,9 @@ go run .
 
 ## Configuration
 
-You change the config by modifying the const in the "config/config.go" or setup environment variable. Supported environment variable list:
+You change the config by modifying the const in the `config/config.go` or setup environment variable.
+
+Supported environment variable list:
 
 | Variable name | Description |
 | -- | -- |
