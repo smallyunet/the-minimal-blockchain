@@ -17,7 +17,7 @@ Start single node in local:
 go run .
 ```
 
-Start a three node group for test:
+Start a 3 node's group in 3 terminal windows:
 
 ```
 export LocalPort=25000 DataPath=data1 HTTPPort=25010
@@ -40,7 +40,7 @@ Supported environment variable list:
 | -- | -- |
 | LocalPort | Node local port |
 | DataPath | Block data path |
-| HTTPPort | Node http por |
+| HTTPPort | Node http port |
 
 ## HTTP API
 
