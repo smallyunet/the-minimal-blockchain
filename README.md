@@ -85,4 +85,4 @@ Maybe... Yes, it seems no actual value. I understand the value of writing some a
 
 ### What progress now?
 
-Due to the above question's reason, I would not complete it quickly, because I have no any reward on it. I just push its progress slowly when I have time and mood.
+It is in progress. Due to the above question's reason, I would not complete it quickly, because I have no any reward on it. I just push its progress slowly when I have time and mood.
