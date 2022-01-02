@@ -2,7 +2,7 @@
 
 A toy blockchain implementation.
 
-## Feature
+## Features
 
 - No third-party modules
 - A little unstable philosophy
