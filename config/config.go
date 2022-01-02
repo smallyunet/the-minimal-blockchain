@@ -2,12 +2,14 @@ package config
 
 // TODO
 // https://stackoverflow.com/questions/18537257/how-to-get-the-directory-of-the-currently-running-file
-const PROJECT_DIR = "/Users/smallyu/work/github/the-minimal-blockchain"
-const LOCAL_PORT = 25000
-const HTTP_PORT = 25010
+const ProjectDir = "/Users/smallyu/work/github/the-minimal-blockchain"
+const LocalPort = 25000
+const HttpPort = 25010
 
-const DEFAULT_PORT = 25000
-const SEED_DOMAIN = "how.gs"
-const DEFAULT_DATA_PATH = PROJECT_DIR + "/data/"
+const DefaultPort = 25000
+const SeedDomain = "how.gs"
+const DefaultDataPath = ProjectDir + "/data/"
+const DefaultBlockSize = 10
+const DefaultBlockTime = 3000
 
-const TCP_BUFFER_SIZE = 1024 * 1024 * 1 // 1MB
+const TcpBufferSize = 1024 * 1024 * 1 // 1MB

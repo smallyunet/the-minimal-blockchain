@@ -10,7 +10,7 @@ import (
 )
 
 // tcp buffer max size
-const tcpBufferSize = config.TCP_BUFFER_SIZE
+const tcpBufferSize = config.TcpBufferSize
 
 // {address: timestamp}
 var RouteTable = map[string]uint64{
@@ -26,12 +26,12 @@ var localPort string
 
 func init() {
 	// get local port from config
-	localPort = strconv.Itoa(config.LOCAL_PORT)
+	localPort = strconv.Itoa(config.LocalPort)
 
 	// get default port from config
-	defaultPort = strconv.Itoa(config.DEFAULT_PORT)
+	defaultPort = strconv.Itoa(config.DefaultPort)
 	// lookup ip address from seed domain
-	ips, err := net.LookupIP(config.SEED_DOMAIN)
+	ips, err := net.LookupIP(config.SeedDomain)
 	if err != nil {
 		log.Fatalln(err)
 		return

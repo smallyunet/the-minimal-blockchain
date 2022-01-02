@@ -10,7 +10,7 @@ import (
 var httpPort string
 
 func init() {
-	httpPort = strconv.Itoa(config.HTTP_PORT)
+	httpPort = strconv.Itoa(config.HttpPort)
 	injuctEnvVar()
 }
 

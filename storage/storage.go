@@ -9,11 +9,21 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/smallyunet/tmb/block"
 	"github.com/smallyunet/tmb/util"
 )
 
-func Set(height uint64, block *block.Block) error {
+type Block struct {
+	Prev    string `json:"prev"`
+	Height  uint64 `json:"height"`
+	Payload string `json:"payload"`
+}
+
+type KeyValue struct {
+	Key   string `json:"key"`
+	Value string `json:"value"`
+}
+
+func Set(height uint64, block *Block) error {
 	if height == 0 {
 		return errors.New("height must larger then zero")
 	}
@@ -22,7 +32,7 @@ func Set(height uint64, block *block.Block) error {
 	if err != nil {
 		return err
 	}
-	phv, err := util.GetHashCode(pb)
+	phv, err := util.GetHashCode(pb.Payload)
 	if err != nil {
 		return err
 	}
@@ -33,21 +43,21 @@ func Set(height uint64, block *block.Block) error {
 	if err != nil {
 		return err
 	}
-	err = os.WriteFile(p, []byte(b), 0644)
+	err = os.WriteFile(p, b, 0644)
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-func Get(height uint64) (*block.Block, error) {
+func Get(height uint64) (*Block, error) {
 	p := getFilePath(height)
 	b, err := os.ReadFile(p)
 	if err != nil {
 		log.Fatalln(err)
 		return nil, err
 	}
-	var block block.Block
+	var block Block
 	err = json.Unmarshal(b, &block)
 	if err != nil {
 		return nil, err
@@ -61,33 +71,66 @@ func GetHeight() (uint64, error) {
 		log.Fatal(err)
 		return 0, err
 	}
+	if len(files) == 0 {
+		err := AddGenesisBlock()
+		if err != nil {
+			log.Fatalln(err)
+		}
+		return 0, nil
+	}
 	// TODO filter end without .json
-	return uint64(len(files)), nil
+	return uint64(len(files)) - 1, nil
 }
 
-func Add(block *block.Block) error {
+func Add(payload string) error {
 	ph, err := GetHeight()
 	if err != nil {
+		log.Fatalln(err)
 		return err
 	}
 	height := ph + 1
 	pb, err := Get(ph)
 	if err != nil {
+		log.Fatalln(err)
 		return err
 	}
-	phv, err := util.GetHashCode(pb)
+	phv, err := util.GetHashCode(pb.Payload)
 	if err != nil {
+		log.Fatalln(err)
 		return err
 	}
+	block := &Block{}
 	block.Prev = phv
 	block.Height = height
+	block.Payload = payload
 	p := getFilePath(height)
 	b, err := json.Marshal(block)
 	if err != nil {
+		log.Fatalln(err)
 		return err
 	}
-	err = os.WriteFile(p, []byte(b), 0644)
+	err = os.WriteFile(p, b, 0644)
 	if err != nil {
+		log.Fatalln(err)
+		return err
+	}
+	return nil
+}
+
+func AddGenesisBlock() error {
+	block := &Block{}
+	block.Prev = ""
+	block.Height = 0
+	block.Payload = ""
+	p := getFilePath(0)
+	b, err := json.Marshal(block)
+	if err != nil {
+		log.Fatalln(err)
+		return err
+	}
+	err = os.WriteFile(p, b, 0644)
+	if err != nil {
+		log.Fatalln(err)
 		return err
 	}
 	return nil

@@ -10,7 +10,7 @@ import (
 var path string
 
 func init() {
-	path = config.DEFAULT_DATA_PATH
+	path = config.DefaultDataPath
 	injuctEnvVar()
 	initDir()
 }

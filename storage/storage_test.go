@@ -2,8 +2,6 @@ package storage
 
 import (
 	"testing"
-
-	"github.com/smallyunet/tmb/block"
 )
 
 func TestGetHeight(t *testing.T) {
@@ -15,7 +13,7 @@ func TestGetHeight(t *testing.T) {
 }
 
 func TestSet(t *testing.T) {
-	block := &block.Block{
+	block := &Block{
 		Payload: "Hello World",
 	}
 	err := Set(1, block)
@@ -33,10 +31,7 @@ func TestGet(t *testing.T) {
 }
 
 func TestAdd(t *testing.T) {
-	block := &block.Block{
-		Payload: "Hello World",
-	}
-	err := Add(block)
+	err := Add("Hello World")
 	if err != nil {
 		t.Fatal(err)
 	}

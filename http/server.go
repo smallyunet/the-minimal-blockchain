@@ -41,7 +41,6 @@ func post(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	log.Println(string(body))
 	var m map[string]string
 	err = json.Unmarshal(body, &m)
 	if err != nil {
@@ -49,13 +48,12 @@ func post(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	for k, v := range m {
-		block.DataCache = append(block.DataCache, block.KeyValue{
+		block.DataCache = append(block.DataCache, storage.KeyValue{
 			Key:   k,
 			Value: v,
 		})
 	}
 	block.DataMsg <- len(m)
-	log.Println("DataCache size:", len(block.DataCache))
 	write(w, "Service accepted the data.")
 }
 
@@ -79,12 +77,12 @@ func get(w http.ResponseWriter, r *http.Request) {
 		write(w, "No data.")
 		return
 	}
-	block, err := storage.Get(uint64(h))
+	b, err := storage.Get(uint64(h))
 	if err != nil {
 		write(w, "Error request path.")
 		return
 	}
-	s, err := json.Marshal(block)
+	s, err := json.Marshal(b)
 	if err != nil {
 		write(w, "Error json data format.")
 		return

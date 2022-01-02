@@ -1,13 +1,6 @@
 package util
 
-import (
-	"strconv"
-
-	"github.com/smallyunet/tmb/block"
-)
-
-func GetHashCode(block *block.Block) (string, error) {
+func GetHashCode(s string) (string, error) {
 	// TODO
-	s := strconv.Itoa(int(block.Height))
-	return s, nil
+	return "", nil
 }
