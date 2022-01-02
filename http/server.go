@@ -26,6 +26,8 @@ func root(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("HTTP server are running."))
 	case "/post":
 		post(w, r)
+	case "info":
+		// TODO
 	default:
 	}
 

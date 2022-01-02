@@ -50,10 +50,17 @@ Supported environment variable list:
 
 | Path | HTTP Method | Description |
 | -- | -- | -- |
+| /info | GET | Get node info |
 | /post | POST | Post data to node |
 | /get/{blockHeigth} | GET | Get block data from node |
 
 ## API Example
+
+### /info
+
+```
+curl http://127.0.0.1:25010/info
+```
 
 ### /post
 
