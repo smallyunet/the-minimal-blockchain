@@ -85,7 +85,7 @@ If you want to start at blockchain technology but are too difficult to start it 
 
 ### Is this project stupid?
 
-Maybe... Yes, it seems no actual value. . I know some similar projects same as "minimal blockchain" don't get much focus, just like this project. I also understand the value of writing some articles is larger than the value of coding. But I want to do something, deposit I need to spend so much time on it.
+Maybe... Yes, it seems no actual value. I know some similar projects same as "minimal blockchain" don't get much focus, just like this project. I also understand the value of writing some articles is larger than the value of coding. But I want to do something, deposit I need to spend so much time on it.
 
 ### What progress now?
 
