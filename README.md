@@ -81,7 +81,7 @@ curl http://127.0.0.1:25010/get?height=1
 
 ### Is this project stupid?
 
-Maybe... Yes, it seems no actual value. But I want to do something, although I need to spend so much time on it.
+Maybe... Yes, it seems no actual value. I understand the value of writing some articles is larger than the value of coding. But I want to do something, deposit I need to spend so much time on it.
 
 ### What progress now?
 
