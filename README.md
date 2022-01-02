@@ -48,9 +48,10 @@ Supported environment variable list:
 
 ## HTTP API
 
-|Path|HTTP Method|Description|
-|--|--|--|
-|/post|POST|Post data to node|
+| Path | HTTP Method | Description |
+| -- | -- | -- |
+| /post | POST | Post data to node |
+| /get/{blockHeigth} | GET | Get block data from node |
 
 ## API Example
 
@@ -61,4 +62,10 @@ curl -X POST \
     -H "Content-Type: application/json" \
     -d '{"key": "value"}' \
     http://127.0.0.1:25010/post
+```
+
+### /get
+
+```
+curl http://127.0.0.1:25010/get?height=1
 ```

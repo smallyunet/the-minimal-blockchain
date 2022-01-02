@@ -8,10 +8,7 @@ import (
 	"github.com/smallyunet/tmb/storage"
 )
 
-var logger *log.Logger
-
 func init() {
-	logger = log.Default()
 }
 
 func main() {
@@ -19,7 +16,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	logger.Println("Current block height:", h)
+	log.Println("Current block height:", h)
 	go network.Server()
 	go http.Server()
 	<-make(chan int)

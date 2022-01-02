@@ -5,13 +5,15 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strconv"
+	"strings"
 
 	"github.com/smallyunet/tmb/block"
+	"github.com/smallyunet/tmb/storage"
 )
 
 func Server() {
 	http.HandleFunc("/", root)
-	http.HandleFunc("/post", post)
 	err := http.ListenAndServe(":"+httpPort, nil)
 	if err != nil {
 		log.Fatal(err)
@@ -19,7 +21,17 @@ func Server() {
 }
 
 func root(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("HTTP server are running."))
+	switch r.URL.Path {
+	case "/":
+		w.Write([]byte("HTTP server are running."))
+	case "/post":
+		post(w, r)
+	default:
+	}
+
+	if strings.HasPrefix(r.URL.Path, "/get") {
+		get(w, r)
+	}
 }
 
 func post(w http.ResponseWriter, r *http.Request) {
@@ -43,6 +55,39 @@ func post(w http.ResponseWriter, r *http.Request) {
 	block.DataMsg <- len(m)
 	log.Println("DataCache size:", len(block.DataCache))
 	write(w, "Service accepted the data.")
+}
+
+func get(w http.ResponseWriter, r *http.Request) {
+	p := strings.Split(r.URL.Path, "/")
+	if len(p) < 3 {
+		write(w, "Error request path.")
+		return
+	}
+	h, err := strconv.Atoi(p[2])
+	if err != nil {
+		write(w, "Error request path.")
+		return
+	}
+	height, err := storage.GetHeight()
+	if err != nil {
+		write(w, "Error request path.")
+		return
+	}
+	if h > int(height) {
+		write(w, "No data.")
+		return
+	}
+	block, err := storage.Get(uint64(h))
+	if err != nil {
+		write(w, "Error request path.")
+		return
+	}
+	s, err := json.Marshal(block)
+	if err != nil {
+		write(w, "Error json data format.")
+		return
+	}
+	write(w, string(s))
 }
 
 func write(w http.ResponseWriter, msg string) {
