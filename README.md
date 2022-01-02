@@ -76,3 +76,13 @@ curl -X POST \
 ```
 curl http://127.0.0.1:25010/get?height=1
 ```
+
+## Q&A
+
+### Is this project stupid?
+
+Maybe... Yes, it seems no actual value. But I want to do something, although I need to spend so much time on it.
+
+### What progress now?
+
+Due to the above question's reason, I would not complete it quickly, because I have no any reward on it. I just push its progress slowly when I have time and mood.
