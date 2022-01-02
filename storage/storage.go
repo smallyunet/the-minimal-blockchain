@@ -10,7 +10,7 @@ import (
 	"strings"
 
 	"github.com/smallyunet/tmb/block"
-	"github.com/smallyunet/tmb/hash"
+	"github.com/smallyunet/tmb/util"
 )
 
 func Set(height uint64, block *block.Block) error {
@@ -22,7 +22,7 @@ func Set(height uint64, block *block.Block) error {
 	if err != nil {
 		return err
 	}
-	phv, err := hash.GetHashCode(pb)
+	phv, err := util.GetHashCode(pb)
 	if err != nil {
 		return err
 	}
@@ -75,7 +75,7 @@ func Add(block *block.Block) error {
 	if err != nil {
 		return err
 	}
-	phv, err := hash.GetHashCode(pb)
+	phv, err := util.GetHashCode(pb)
 	if err != nil {
 		return err
 	}

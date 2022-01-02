@@ -1,6 +1,6 @@
 # The Minimal Blockchain
 
-It exactly is a blockchain.
+A toy blockchain implementation.
 
 ## Feature
 
