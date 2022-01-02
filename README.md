@@ -79,6 +79,10 @@ curl http://127.0.0.1:25010/get?height=1
 
 ## Q&A
 
+### Why this project?
+
+If you want to start at blockchain technology but are too difficult to start it with Bitcoin or Ethereum, you will need the simplest project that contains key parts of the blockchain.
+
 ### Is this project stupid?
 
 Maybe... Yes, it seems no actual value. I understand the value of writing some articles is larger than the value of coding. But I want to do something, deposit I need to spend so much time on it.
