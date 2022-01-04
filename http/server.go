@@ -14,25 +14,29 @@ import (
 
 func Server() {
 	http.HandleFunc("/", root)
-	err := http.ListenAndServe(":"+httpPort, nil)
-	if err != nil {
-		log.Fatal(err)
+	failed := make(chan bool, 1)
+	go func() {
+		err := http.ListenAndServe(":"+httpPort, nil)
+		if err != nil {
+			failed <- true
+			log.Fatal(err)
+		}
+	}()
+	log.Println("HTTP server running on port", httpPort)
+	if <-failed {
+		log.Fatal("HTTP server stopped.")
 	}
 }
 
 func root(w http.ResponseWriter, r *http.Request) {
-	switch r.URL.Path {
-	case "/":
-		w.Write([]byte("HTTP server are running."))
-	case "/post":
+	if strings.HasPrefix(r.URL.Path, "/post") {
 		post(w, r)
-	case "info":
-		// TODO
-	default:
 	}
-
 	if strings.HasPrefix(r.URL.Path, "/get") {
 		get(w, r)
+	}
+	if strings.HasPrefix(r.URL.Path, "/info") {
+		info(w, r)
 	}
 }
 
@@ -88,6 +92,22 @@ func get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	write(w, string(s))
+}
+
+func info(w http.ResponseWriter, r *http.Request) {
+	res := make(map[string]interface{})
+	height, err := storage.GetHeight()
+	if err != nil {
+		write(w, "Error request path.")
+		return
+	}
+	res["heigth"] = height
+	resBytes, err := json.Marshal(res)
+	if err != nil {
+		write(w, "Error json data format.")
+		return
+	}
+	write(w, string(resBytes))
 }
 
 func write(w http.ResponseWriter, msg string) {

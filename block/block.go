@@ -27,7 +27,9 @@ func Accept() {
 				pushData()
 			}
 		case <-ticker.C:
-			pushData()
+			if len(DataCache) > 0 {
+				pushData()
+			}
 		default:
 			// do nothing
 		}
