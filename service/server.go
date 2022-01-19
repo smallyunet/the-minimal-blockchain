@@ -1,8 +1,11 @@
-package network
+package service
 
 import (
+	"encoding/json"
 	"log"
 	"net"
+
+	"github.com/smallyunet/tmb/storage"
 )
 
 func Server() {
@@ -35,6 +38,18 @@ func handleConnection(conn net.Conn) {
 		}
 	}
 	defer conn.Close()
-	log.Println(string(buf))
-	conn.Write([]byte("Hello, World!"))
+	if string(buf) != "" {
+		log.Println(string(buf))
+		// handle payload data
+		var d []storage.KeyValue
+		err := json.Unmarshal(buf, &d)
+		if err != nil {
+			conn.Write([]byte("Error json data format."))
+			return
+		}
+		// TODO should not handle tx rather than block data use consenses
+		//block.DataCache = append(block.DataCache, d...)
+		//block.DataMsg <- len(d)
+		conn.Write([]byte("Handle data success."))
+	}
 }

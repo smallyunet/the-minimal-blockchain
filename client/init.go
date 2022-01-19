@@ -1,4 +1,4 @@
-package network
+package client
 
 import (
 	"log"
@@ -6,7 +6,6 @@ import (
 	"strconv"
 
 	"github.com/smallyunet/tmb/config"
-	"github.com/smallyunet/tmb/util"
 )
 
 // tcp buffer max size
@@ -21,13 +20,7 @@ var RouteTable = map[string]uint64{
 // port of whole network default define
 var defaultPort string
 
-// port of local node start
-var localPort string
-
 func init() {
-	// get local port from config
-	localPort = strconv.Itoa(config.LocalPort)
-
 	// get default port from config
 	defaultPort = strconv.Itoa(config.DefaultPort)
 	// lookup ip address from seed domain
@@ -42,13 +35,4 @@ func init() {
 		RouteTable[addr] = 0
 	}
 	log.Println("RouteTable initialized size:", len(RouteTable))
-
-	injuctEnvVar()
-}
-
-func injuctEnvVar() {
-	value, ok := util.GetEnvVar("LocalPort")
-	if ok {
-		localPort = value
-	}
 }
