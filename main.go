@@ -1,10 +1,10 @@
 package main
 
 import (
+	"github.com/smallyunet/tmb/server/http"
+	"github.com/smallyunet/tmb/server/tcp"
 	"log"
 
-	"github.com/smallyunet/tmb/http"
-	"github.com/smallyunet/tmb/service"
 	"github.com/smallyunet/tmb/storage"
 )
 
@@ -17,7 +17,7 @@ func main() {
 		panic(err)
 	}
 	log.Println("Current block height:", h)
-	go service.Server()
+	go tcp.Server()
 	go http.Server()
 	<-make(chan int)
 }

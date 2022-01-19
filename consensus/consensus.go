@@ -1,7 +1,7 @@
 package consensus
 
 import (
-	"github.com/smallyunet/tmb/client"
+	"github.com/smallyunet/tmb/client/tcp"
 	"log"
 
 	"github.com/smallyunet/tmb/storage"
@@ -13,8 +13,8 @@ func Push(payload string) error {
 		log.Fatalln(err)
 		return nil
 	}
-	// bordcast to other nodes
+	// broadcast to other nodes
 	// TODO all block content ranther than payload
-	client.SendToAll(payload)
+	tcp.SendToAll(payload)
 	return nil
 }

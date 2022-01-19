@@ -1,6 +1,6 @@
 package config
 
-// TODO
+// ProjectDir TODO
 // https://stackoverflow.com/questions/18537257/how-to-get-the-directory-of-the-currently-running-file
 const ProjectDir = "/Users/smallyu/work/github/the-minimal-blockchain"
 const LocalPort = 25000

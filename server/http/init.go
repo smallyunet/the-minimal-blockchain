@@ -11,10 +11,10 @@ var httpPort string
 
 func init() {
 	httpPort = strconv.Itoa(config.HttpPort)
-	injuctEnvVar()
+	injectEnvVar()
 }
 
-func injuctEnvVar() {
+func injectEnvVar() {
 	value, ok := util.GetEnvVar("HTTPPort")
 	if ok {
 		httpPort = value

@@ -1,4 +1,4 @@
-package client
+package tcp
 
 import (
 	"log"
@@ -11,7 +11,7 @@ import (
 // tcp buffer max size
 const tcpBufferSize = config.TcpBufferSize
 
-// {address: timestamp}
+// RouteTable {address: timestamp}
 var RouteTable = map[string]uint64{
 	"127.0.0.1:25000": 0,
 	"127.0.0.1:25001": 0,
