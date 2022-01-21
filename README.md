@@ -1,13 +1,6 @@
 # The Minimal Blockchain
 
-A toy blockchain implementation.
-
-## Features
-
-- No third-party modules
-- A little unstable philosophy
-- Source code valued itself rather than engeering
-- The consensus implements [*A consensus mechanism based on "egocentrism"*](https://smallyu-net.translate.goog/2021/10/29/%E4%B8%80%E7%A7%8D%E5%9F%BA%E4%BA%8E%E2%80%9C%E8%87%AA%E6%88%91%E4%B8%AD%E5%BF%83%E4%B8%BB%E4%B9%89%E2%80%9D%E7%9A%84%E5%85%B1%E8%AF%86%E6%9C%BA%E5%88%B6/?_x_tr_sch=http&_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_pto=nui)
+The Golang implementation of [the-minimal-blockchain/tmb-specification](https://github.com/the-minimal-blockchain/tmb-specification).
 
 ## Environment
 
@@ -34,59 +27,6 @@ export LocalPort=25002 DataPath=data3 HTTPPort=25012
 go run .
 ```
 
-## Configuration
+## Documents
 
-You change the config by modifying the const in the `config/config.go` or setup environment variable.
-
-Supported environment variable list:
-
-| Variable name | Description |
-| -- | -- |
-| LocalPort | Node local port |
-| DataPath | Block data path |
-| HTTPPort | Node http port |
-
-## HTTP API
-
-| Path | HTTP Method | Description |
-| -- | -- | -- |
-| /info | GET | Get node info |
-| /post | POST | Post data to node |
-| /get/{blockHeigth} | GET | Get block data from node |
-
-## API Example
-
-### /info
-
-```
-curl http://127.0.0.1:25010/info
-```
-
-### /post
-
-```
-curl -X POST \
-    -H "Content-Type: application/json" \
-    -d '{"key": "value"}' \
-    http://127.0.0.1:25010/post
-```
-
-### /get
-
-```
-curl http://127.0.0.1:25010/get?height=1
-```
-
-## Q&A
-
-### Why this project?
-
-If you want to start at blockchain technology but are too difficult to start it with Bitcoin or Ethereum, you will need the simplest project that contains key parts of the blockchain.
-
-### Is this project stupid?
-
-Maybe... Yes, it seems no actual value. I know some similar projects same as "minimal blockchain" don't get much focus, just like this project. I also understand the value of writing some articles is larger than the value of coding. But I want to do something, deposit I need to spend so much time on it.
-
-### What progress now?
-
-It is in progress. Due to the above question's reason, I would not complete it quickly, because I have no any reward on it. I just push its progress slowly when I have time and mood.
+Reference the documents part in [the-minimal-blockchain/tmb-specification](https://github.com/the-minimal-blockchain/tmb-specification#Documents).
