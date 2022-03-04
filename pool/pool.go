@@ -1,4 +1,4 @@
-package block
+package pool
 
 import (
 	"encoding/json"
@@ -9,7 +9,7 @@ import (
 	"github.com/smallyunet/tmb/storage"
 )
 
-var DataCache = make([]storage.KeyValue, 0)
+var PoolCache = make([]storage.KeyValue, 0)
 
 var DataMsg = make(chan int, 1)
 
@@ -23,12 +23,12 @@ func Accept() {
 	for {
 		select {
 		case <-DataMsg:
-			if uint64(len(DataCache)) >= blockSize {
-				pushData()
+			if uint64(len(PoolCache)) >= blockSize {
+				pushBlock()
 			}
 		case <-ticker.C:
-			if len(DataCache) > 0 {
-				pushData()
+			if len(PoolCache) > 0 {
+				pushBlock()
 			}
 		default:
 			// do nothing
@@ -36,8 +36,15 @@ func Accept() {
 	}
 }
 
-func pushData() {
-	d, err := json.Marshal(DataCache)
+func PushToPool(data storage.KeyValue) {
+	PoolCache = append(PoolCache, storage.KeyValue{
+		Key:   data.Key,
+		Value: data.Value,
+	})
+}
+
+func pushBlock() {
+	d, err := json.Marshal(PoolCache)
 	if err != nil {
 		log.Fatalln(err)
 		return
@@ -47,5 +54,5 @@ func pushData() {
 		log.Fatalln(err)
 		return
 	}
-	DataCache = make([]storage.KeyValue, 0)
+	PoolCache = make([]storage.KeyValue, 0)
 }

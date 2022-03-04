@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/smallyunet/tmb/block"
+	"github.com/smallyunet/tmb/pool"
 	"github.com/smallyunet/tmb/storage"
 )
 
@@ -52,12 +52,12 @@ func post(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	for k, v := range m {
-		block.DataCache = append(block.DataCache, storage.KeyValue{
+		pool.PushToPool(storage.KeyValue{
 			Key:   k,
 			Value: v,
 		})
 	}
-	block.DataMsg <- len(m)
+	pool.DataMsg <- len(m)
 	write(w, "Service accepted the data.")
 }
 
@@ -101,7 +101,7 @@ func info(w http.ResponseWriter, r *http.Request) {
 		write(w, "Error request path.")
 		return
 	}
-	res["heigth"] = height
+	res["height"] = height
 	resBytes, err := json.Marshal(res)
 	if err != nil {
 		write(w, "Error json data format.")

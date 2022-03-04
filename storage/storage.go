@@ -66,6 +66,7 @@ func Get(height uint64) (*Block, error) {
 }
 
 func GetHeight() (uint64, error) {
+	log.Println("Project data path: " + path)
 	files, err := ioutil.ReadDir(path)
 	if err != nil {
 		log.Fatal(err)
@@ -82,39 +83,48 @@ func GetHeight() (uint64, error) {
 	return uint64(len(files)) - 1, nil
 }
 
-func Add(payload string) error {
+func generateNextBlock(payload string) (*Block, error) {
 	ph, err := GetHeight()
 	if err != nil {
 		log.Fatalln(err)
-		return err
+		return nil, err
 	}
 	height := ph + 1
 	pb, err := Get(ph)
 	if err != nil {
 		log.Fatalln(err)
-		return err
+		return nil, err
 	}
 	phv, err := util.GetHashCode(pb.Payload)
 	if err != nil {
 		log.Fatalln(err)
-		return err
+		return nil, err
 	}
 	block := &Block{}
 	block.Prev = phv
 	block.Height = height
 	block.Payload = payload
-	p := getFilePath(height)
-	b, err := json.Marshal(block)
+	return block, nil
+}
+
+func Add(payload string) (*Block,error) {
+	nextBlock, err := generateNextBlock(payload)
 	if err != nil {
 		log.Fatalln(err)
-		return err
+		return nil, err
+	}
+	p := getFilePath(nextBlock.Height)
+	b, err := json.Marshal(nextBlock)
+	if err != nil {
+		log.Fatalln(err)
+		return nil, err
 	}
 	err = os.WriteFile(p, b, 0644)
 	if err != nil {
 		log.Fatalln(err)
-		return err
+		return nil, err
 	}
-	return nil
+	return nextBlock, nil
 }
 
 func AddGenesisBlock() error {

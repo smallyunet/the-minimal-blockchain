@@ -2,10 +2,10 @@ package tcp
 
 import (
 	"encoding/json"
+	"github.com/smallyunet/tmb/consensus"
+	"github.com/smallyunet/tmb/storage"
 	"log"
 	"net"
-
-	"github.com/smallyunet/tmb/storage"
 )
 
 func Server() {
@@ -39,17 +39,14 @@ func handleConnection(conn net.Conn) {
 	}
 	defer conn.Close()
 	if string(buf) != "" {
-		log.Println(string(buf))
-		// handle payload data
-		var d []storage.KeyValue
-		err := json.Unmarshal(buf, &d)
+		// handle block data
+		var b storage.Block
+		err := json.Unmarshal(buf, &b)
 		if err != nil {
-			conn.Write([]byte("Error json data format."))
+			conn.Write([]byte(localAddress + ": Receive error json data format."))
 			return
 		}
-		// TODO should not handle tx rather than block data use consenses
-		//block.DataCache = append(block.DataCache, d...)
-		//block.DataMsg <- len(d)
-		conn.Write([]byte("Handle data success."))
+		consensus.HandleBlock(&b)
+		conn.Write([]byte(localAddress + ": Receive data success."))
 	}
 }

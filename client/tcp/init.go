@@ -13,8 +13,8 @@ const tcpBufferSize = config.TcpBufferSize
 
 // RouteTable {address: timestamp}
 var RouteTable = map[string]uint64{
-	"127.0.0.1:25000": 0,
 	"127.0.0.1:25001": 0,
+	"127.0.0.1:25002": 0,
 }
 
 // port of whole network default define

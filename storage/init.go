@@ -11,11 +11,11 @@ var path string
 
 func init() {
 	path = config.DefaultDataPath
-	injuctEnvVar()
+	injectEnvVar()
 	initDir()
 }
 
-func injuctEnvVar() {
+func injectEnvVar() {
 	value, ok := util.GetEnvVar("DataPath")
 	if ok {
 		path = value

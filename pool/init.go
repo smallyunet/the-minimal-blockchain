@@ -1,4 +1,4 @@
-package block
+package pool
 
 import "github.com/smallyunet/tmb/config"
 
