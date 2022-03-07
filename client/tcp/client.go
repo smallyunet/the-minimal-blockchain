@@ -25,12 +25,12 @@ func SendToAll(msg string) {
 		// TODO change the default protocol
 		conn, err := net.Dial("tcp", k)
 		if err != nil {
-			log.Fatalln(err)
+			log.Println("Broadcast block data:", err)
+			return
 		}
 		defer conn.Close()
 		fmt.Fprint(conn, msg)
 		var buf bytes.Buffer
 		io.Copy(&buf, conn)
-		log.Println(buf.String())
 	}
 }

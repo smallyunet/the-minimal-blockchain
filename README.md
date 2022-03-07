@@ -29,4 +29,47 @@ go run .
 
 ## Documents
 
-Reference the documents part in [the-minimal-blockchain/tmb-specification](https://github.com/the-minimal-blockchain/tmb-specification#Documents).
+### Configuration
+
+You can change the config by modifying the const in the config file or setting up the environment variable.
+
+Supported environment variable list currently:
+
+| Variable name | Description |
+| -- | -- |
+| LocalPort | Node local port |
+| LocalIP | Node local ip |
+| DataPath | Block data path |
+| HTTPPort | Node http port |
+
+### HTTP API
+
+| Path | HTTP Method | Description |
+| -- | -- | -- |
+| /info | GET | Get node info |
+| /post | POST | Post data to node |
+| /get/{blockHeigth} | GET | Get block data from node |
+
+### HTTP API Example
+
+#### /info
+
+```
+curl http://127.0.0.1:25010/info
+```
+
+#### /post
+
+```
+curl -X POST \
+    -H "Content-Type: application/json" \
+    -d '{"key": "value"}' \
+    http://127.0.0.1:25010/post
+```
+
+#### /get
+
+```
+curl http://127.0.0.1:25010/get/1
+```
+
