@@ -2,17 +2,19 @@ package http
 
 import (
 	"encoding/json"
+	"github.com/smallyunet/tmb/block"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"strconv"
 	"strings"
+	"sync"
 
 	"github.com/smallyunet/tmb/pool"
 	"github.com/smallyunet/tmb/storage"
 )
 
-func Server() {
+func Server(wg *sync.WaitGroup) {
 	http.HandleFunc("/", root)
 	failed := make(chan bool, 1)
 	go func() {
@@ -23,6 +25,7 @@ func Server() {
 		}
 	}()
 	log.Println("HTTP server running on port", httpPort)
+	wg.Done()
 	if <-failed {
 		log.Fatal("HTTP server stopped.")
 	}
@@ -52,7 +55,7 @@ func post(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	for k, v := range m {
-		pool.PushToPool(storage.KeyValue{
+		pool.PushToPool(block.KeyValue{
 			Key:   k,
 			Value: v,
 		})

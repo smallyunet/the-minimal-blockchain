@@ -4,6 +4,7 @@ import (
 	"github.com/smallyunet/tmb/server/http"
 	"github.com/smallyunet/tmb/server/tcp"
 	"log"
+	"sync"
 
 	"github.com/smallyunet/tmb/storage"
 )
@@ -17,7 +18,11 @@ func main() {
 		panic(err)
 	}
 	log.Println("Current block height:", h)
-	go tcp.Server()
-	go http.Server()
+	var wg sync.WaitGroup
+	wg.Add(2)
+	go tcp.Server(&wg)
+	go http.Server(&wg)
+	wg.Wait()
+	log.Println("-----------started-------------")
 	<-make(chan int)
 }

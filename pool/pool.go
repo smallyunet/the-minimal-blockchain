@@ -2,14 +2,14 @@ package pool
 
 import (
 	"encoding/json"
+	"github.com/smallyunet/tmb/block"
 	"log"
 	"time"
 
 	"github.com/smallyunet/tmb/consensus"
-	"github.com/smallyunet/tmb/storage"
 )
 
-var PoolCache = make([]storage.KeyValue, 0)
+var PoolCache = make([]block.KeyValue, 0)
 
 var DataMsg = make(chan int, 1)
 
@@ -36,8 +36,8 @@ func Accept() {
 	}
 }
 
-func PushToPool(data storage.KeyValue) {
-	PoolCache = append(PoolCache, storage.KeyValue{
+func PushToPool(data block.KeyValue) {
+	PoolCache = append(PoolCache, block.KeyValue{
 		Key:   data.Key,
 		Value: data.Value,
 	})
@@ -54,5 +54,5 @@ func pushBlock() {
 		log.Fatalln(err)
 		return
 	}
-	PoolCache = make([]storage.KeyValue, 0)
+	PoolCache = make([]block.KeyValue, 0)
 }

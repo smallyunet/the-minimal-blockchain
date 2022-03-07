@@ -3,6 +3,7 @@ package storage
 import (
 	"encoding/json"
 	"errors"
+	"github.com/smallyunet/tmb/block"
 	"io/ioutil"
 	"log"
 	"os"
@@ -12,18 +13,9 @@ import (
 	"github.com/smallyunet/tmb/util"
 )
 
-type Block struct {
-	Prev    string `json:"prev"`
-	Height  uint64 `json:"height"`
-	Payload string `json:"payload"`
-}
 
-type KeyValue struct {
-	Key   string `json:"key"`
-	Value string `json:"value"`
-}
 
-func Set(height uint64, block *Block) error {
+func Set(height uint64, block *block.Block) error {
 	if height == 0 {
 		return errors.New("height must larger then zero")
 	}
@@ -32,7 +24,7 @@ func Set(height uint64, block *Block) error {
 	if err != nil {
 		return err
 	}
-	phv, err := util.GetHashCode(pb.Payload)
+	phv, err := util.GetHashCode(pb)
 	if err != nil {
 		return err
 	}
@@ -50,14 +42,14 @@ func Set(height uint64, block *Block) error {
 	return nil
 }
 
-func Get(height uint64) (*Block, error) {
+func Get(height uint64) (*block.Block, error) {
 	p := getFilePath(height)
 	b, err := os.ReadFile(p)
 	if err != nil {
 		log.Fatalln(err)
 		return nil, err
 	}
-	var block Block
+	var block block.Block
 	err = json.Unmarshal(b, &block)
 	if err != nil {
 		return nil, err
@@ -83,7 +75,7 @@ func GetHeight() (uint64, error) {
 	return uint64(len(files)) - 1, nil
 }
 
-func generateNextBlock(payload string) (*Block, error) {
+func generateNextBlock(payload string) (*block.Block, error) {
 	ph, err := GetHeight()
 	if err != nil {
 		log.Fatalln(err)
@@ -95,19 +87,19 @@ func generateNextBlock(payload string) (*Block, error) {
 		log.Fatalln(err)
 		return nil, err
 	}
-	phv, err := util.GetHashCode(pb.Payload)
+	phv, err := util.GetHashCode(pb)
 	if err != nil {
 		log.Fatalln(err)
 		return nil, err
 	}
-	block := &Block{}
+	block := &block.Block{}
 	block.Prev = phv
 	block.Height = height
 	block.Payload = payload
 	return block, nil
 }
 
-func Add(payload string) (*Block,error) {
+func Add(payload string) (*block.Block,error) {
 	nextBlock, err := generateNextBlock(payload)
 	if err != nil {
 		log.Fatalln(err)
@@ -128,7 +120,7 @@ func Add(payload string) (*Block,error) {
 }
 
 func AddGenesisBlock() error {
-	block := &Block{}
+	block := &block.Block{}
 	block.Prev = ""
 	block.Height = 0
 	block.Payload = ""

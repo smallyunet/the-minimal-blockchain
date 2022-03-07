@@ -2,17 +2,20 @@ package tcp
 
 import (
 	"encoding/json"
+	"github.com/smallyunet/tmb/block"
 	"github.com/smallyunet/tmb/consensus"
-	"github.com/smallyunet/tmb/storage"
 	"log"
 	"net"
+	"sync"
 )
 
-func Server() {
+func Server(wg *sync.WaitGroup) {
 	ln, err := net.Listen("tcp", ":"+localPort)
 	if err != nil {
 		log.Fatalln(err)
 	}
+	log.Println("TCP server running on port", localPort)
+	wg.Done()
 	for {
 		conn, err := ln.Accept()
 		if err != nil {
@@ -40,7 +43,7 @@ func handleConnection(conn net.Conn) {
 	defer conn.Close()
 	if string(buf) != "" {
 		// handle block data
-		var b storage.Block
+		var b block.Block
 		err := json.Unmarshal(buf, &b)
 		if err != nil {
 			conn.Write([]byte(localAddress + ": Receive error json data format."))
