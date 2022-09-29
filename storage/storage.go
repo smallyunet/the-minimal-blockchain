@@ -13,8 +13,6 @@ import (
 	"github.com/smallyunet/tmb/util"
 )
 
-
-
 func Set(height uint64, block *block.Block) error {
 	if height == 0 {
 		return errors.New("height must larger then zero")
@@ -49,12 +47,12 @@ func Get(height uint64) (*block.Block, error) {
 		log.Fatalln(err)
 		return nil, err
 	}
-	var block block.Block
-	err = json.Unmarshal(b, &block)
+	var blockData block.Block
+	err = json.Unmarshal(b, &blockData)
 	if err != nil {
 		return nil, err
 	}
-	return &block, nil
+	return &blockData, nil
 }
 
 func GetHeight() (uint64, error) {
@@ -75,7 +73,7 @@ func GetHeight() (uint64, error) {
 	return uint64(len(files)) - 1, nil
 }
 
-func generateNextBlock(payload string) (*block.Block, error) {
+func generateNextBlock(payload []block.KeyValue) (*block.Block, error) {
 	ph, err := GetHeight()
 	if err != nil {
 		log.Fatalln(err)
@@ -99,7 +97,7 @@ func generateNextBlock(payload string) (*block.Block, error) {
 	return block, nil
 }
 
-func Add(payload string) (*block.Block,error) {
+func Add(payload []block.KeyValue) (*block.Block, error) {
 	nextBlock, err := generateNextBlock(payload)
 	if err != nil {
 		log.Fatalln(err)
@@ -120,12 +118,12 @@ func Add(payload string) (*block.Block,error) {
 }
 
 func AddGenesisBlock() error {
-	block := &block.Block{}
-	block.Prev = ""
-	block.Height = 0
-	block.Payload = ""
+	blockData := &block.Block{}
+	blockData.Prev = ""
+	blockData.Height = 0
+	blockData.Payload = []block.KeyValue{}
 	p := getFilePath(0)
-	b, err := json.Marshal(block)
+	b, err := json.Marshal(blockData)
 	if err != nil {
 		log.Fatalln(err)
 		return err

@@ -35,20 +35,20 @@ You can change the config by modifying the const in the config file or setting u
 
 Supported environment variable list currently:
 
-| Variable name | Description |
-| -- | -- |
-| LocalPort | Node local port |
-| LocalIP | Node local ip |
-| DataPath | Block data path |
-| HTTPPort | Node http port |
+| Variable name | Description |  
+| -- | -- |  
+| LocalPort | Node local port |  
+| LocalIP | Node local ip |  
+| DataPath | Block data path |  
+| HTTPPort | Node http port |  
 
 ### HTTP API
 
-| Path | HTTP Method | Description |
-| -- | -- | -- |
-| /info | GET | Get node info |
-| /post | POST | Post data to node |
-| /get/{blockHeigth} | GET | Get block data from node |
+| Path | HTTP Method | Description |  
+| -- | -- | -- |  
+| /info | GET | Get node info |  
+| /post | POST | Post data to node |  
+| /get/{blockHeigth} | GET | Get block data from node |  
 
 ### HTTP API Example
 

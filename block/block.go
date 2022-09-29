@@ -6,9 +6,9 @@ import (
 )
 
 type Block struct {
-	Prev    string `json:"prev"`
-	Height  uint64 `json:"height"`
-	Payload string `json:"payload"`
+	Prev    string     `json:"prev"`
+	Height  uint64     `json:"height"`
+	Payload []KeyValue `json:"payload"`
 }
 
 func (b Block) Serialize() string {

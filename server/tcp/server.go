@@ -20,7 +20,6 @@ func Server(wg *sync.WaitGroup) {
 		conn, err := ln.Accept()
 		if err != nil {
 			log.Fatalln(err)
-			return
 		}
 		go handleConnection(conn)
 	}

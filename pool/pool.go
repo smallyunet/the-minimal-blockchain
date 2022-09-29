@@ -1,7 +1,6 @@
 package pool
 
 import (
-	"encoding/json"
 	"github.com/smallyunet/tmb/block"
 	"log"
 	"time"
@@ -44,12 +43,7 @@ func PushToPool(data block.KeyValue) {
 }
 
 func pushBlock() {
-	d, err := json.Marshal(PoolCache)
-	if err != nil {
-		log.Fatalln(err)
-		return
-	}
-	err = consensus.Push(string(d))
+	err := consensus.Push(PoolCache)
 	if err != nil {
 		log.Fatalln(err)
 		return
