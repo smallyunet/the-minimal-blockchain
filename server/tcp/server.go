@@ -3,7 +3,7 @@ package tcp
 import (
 	"encoding/json"
 	"github.com/smallyunet/tmb/block"
-	"github.com/smallyunet/tmb/consensus"
+	"github.com/smallyunet/tmb/pool"
 	"log"
 	"net"
 	"sync"
@@ -48,7 +48,7 @@ func handleConnection(conn net.Conn) {
 			conn.Write([]byte(localAddress + ": Receive error json data format."))
 			return
 		}
-		consensus.HandleBlock(&b)
+		pool.PushBlockToPool(&b)
 		conn.Write([]byte(localAddress + ": Receive data success."))
 	}
 }

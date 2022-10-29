@@ -13,12 +13,14 @@ const tcpBufferSize = config.TcpBufferSize
 
 // RouteTable {address: timestamp}
 var RouteTable = map[string]uint64{
-	"127.0.0.1:25001": 0,
-	"127.0.0.1:25002": 0,
+	"127.0.0.1:25010": 0,
+	"127.0.0.1:25011": 0,
+	"127.0.0.1:25012": 0,
 }
 
 // port of whole network default define
 var defaultPort string
+var blockTime int64
 
 func init() {
 	// get default port from config
@@ -35,4 +37,7 @@ func init() {
 		RouteTable[addr] = 0
 	}
 	log.Println("RouteTable initialized size:", len(RouteTable))
+
+	blockTime = config.DefaultBlockTime
+	go GetLatestBlock()
 }

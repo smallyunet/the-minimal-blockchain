@@ -7,7 +7,7 @@ const DefaultDataPath = "data"
 
 const DefaultPort = 25000
 const SeedDomain = "how.gs"
-const DefaultBlockSize = 10
-const DefaultBlockTime = 3000
+const DefaultBlockSize = 10   // 10 transactions per block
+const DefaultBlockTime = 3000 // second
 
 const TcpBufferSize = 1024 * 1024 * 1 // 1MB

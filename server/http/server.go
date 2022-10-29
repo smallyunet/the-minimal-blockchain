@@ -55,7 +55,7 @@ func post(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	for k, v := range m {
-		pool.PushToPool(block.KeyValue{
+		pool.PushTxToPool(block.KeyValue{
 			Key:   k,
 			Value: v,
 		})

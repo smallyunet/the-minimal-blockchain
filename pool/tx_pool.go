@@ -8,26 +8,22 @@ import (
 	"github.com/smallyunet/tmb/consensus"
 )
 
-var PoolCache = make([]block.KeyValue, 0)
+var TxPool = make([]block.KeyValue, 0)
 
 var DataMsg = make(chan int, 1)
 
-func init() {
-	go Accept()
-}
-
-func Accept() {
+func AcceptTx() {
 	ticker := time.NewTicker(time.Duration(blockTime) * time.Millisecond)
 
 	for {
 		select {
 		case <-DataMsg:
-			if uint64(len(PoolCache)) >= blockSize {
-				pushBlock()
+			if uint64(len(TxPool)) >= blockSize {
+				pushBlockByTx()
 			}
 		case <-ticker.C:
-			if len(PoolCache) > 0 {
-				pushBlock()
+			if len(TxPool) > 0 {
+				pushBlockByTx()
 			}
 		default:
 			// do nothing
@@ -35,18 +31,18 @@ func Accept() {
 	}
 }
 
-func PushToPool(data block.KeyValue) {
-	PoolCache = append(PoolCache, block.KeyValue{
+func PushTxToPool(data block.KeyValue) {
+	TxPool = append(TxPool, block.KeyValue{
 		Key:   data.Key,
 		Value: data.Value,
 	})
 }
 
-func pushBlock() {
-	err := consensus.Push(PoolCache)
+func pushBlockByTx() {
+	err := consensus.SaveBlockByTx(TxPool)
 	if err != nil {
 		log.Fatalln(err)
 		return
 	}
-	PoolCache = make([]block.KeyValue, 0)
+	TxPool = make([]block.KeyValue, 0)
 }
