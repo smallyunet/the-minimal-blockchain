@@ -11,3 +11,8 @@ const DefaultBlockSize = 10   // 10 transactions per block
 const DefaultBlockTime = 3000 // second
 
 const TcpBufferSize = 1024 * 1024 * 1 // 1MB
+
+const DataPathFlag = "DataPath"
+const LocalPortFlag = "LocalPort"
+const LocalIPFlag = "LocalIP"
+const HTTPPortFlag = "HTTPPort"

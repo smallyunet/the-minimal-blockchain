@@ -1,33 +1,34 @@
-package http
+package server
 
 import (
 	"encoding/json"
 	"github.com/smallyunet/tmb/block"
+	"github.com/smallyunet/tmb/config"
+	"github.com/smallyunet/tmb/pool"
+	"github.com/smallyunet/tmb/storage"
+	"github.com/smallyunet/tmb/util"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"strconv"
 	"strings"
-	"sync"
-
-	"github.com/smallyunet/tmb/pool"
-	"github.com/smallyunet/tmb/storage"
 )
 
-func Server(wg *sync.WaitGroup) {
+var httpPort string
+
+func InitHttp() {
+	httpPort = strconv.Itoa(config.HttpPort)
+	value, ok := util.GetEnvVar(config.HTTPPortFlag)
+	if ok {
+		httpPort = value
+	}
+}
+
+func HttpServer() {
 	http.HandleFunc("/", root)
-	failed := make(chan bool, 1)
-	go func() {
-		err := http.ListenAndServe(":"+httpPort, nil)
-		if err != nil {
-			failed <- true
-			log.Fatal(err)
-		}
-	}()
-	log.Println("HTTP server running on port", httpPort)
-	wg.Done()
-	if <-failed {
-		log.Fatal("HTTP server stopped.")
+	err := http.ListenAndServe(":"+httpPort, nil)
+	if err != nil {
+		log.Fatal(err)
 	}
 }
 

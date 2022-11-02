@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/smallyunet/tmb/block"
+	"github.com/smallyunet/tmb/config"
 	"io/ioutil"
 	"log"
 	"os"
@@ -12,6 +13,23 @@ import (
 
 	"github.com/smallyunet/tmb/util"
 )
+
+var path string
+
+func Init() {
+	path = config.DefaultDataPath
+	value, ok := util.GetEnvVar(config.DataPathFlag)
+	if ok {
+		path = value
+	}
+	_, err := os.ReadDir(path)
+	if err != nil {
+		err = os.Mkdir(path, 0755)
+		if err != nil {
+			panic(err)
+		}
+	}
+}
 
 func Set(height uint64, block *block.Block) error {
 	if height == 0 {
@@ -56,7 +74,6 @@ func Get(height uint64) (*block.Block, error) {
 }
 
 func GetHeight() (uint64, error) {
-	log.Println("Project data path: " + path)
 	files, err := ioutil.ReadDir(path)
 	if err != nil {
 		log.Fatal(err)

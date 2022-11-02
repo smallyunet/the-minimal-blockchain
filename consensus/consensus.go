@@ -3,12 +3,12 @@ package consensus
 import (
 	"encoding/json"
 	"errors"
+	"github.com/smallyunet/tmb/client"
 	"github.com/smallyunet/tmb/util"
 	"log"
 	"math/rand"
 
 	"github.com/smallyunet/tmb/block"
-	//"github.com/smallyunet/tmb/client/tcp"
 	"github.com/smallyunet/tmb/storage"
 )
 
@@ -25,7 +25,7 @@ func SaveBlockByTx(payload []block.KeyValue) error {
 		log.Fatalln(err)
 		return err
 	}
-	//tcp.SendToAll(string(b))
+	client.SendToAll(string(b))
 	log.Println("Send to all nodes: " + string(b))
 	return nil
 }

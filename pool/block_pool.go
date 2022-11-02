@@ -2,6 +2,7 @@ package pool
 
 import (
 	"github.com/smallyunet/tmb/block"
+	"github.com/smallyunet/tmb/config"
 	"github.com/smallyunet/tmb/consensus"
 	"github.com/smallyunet/tmb/storage"
 	"log"
@@ -13,7 +14,7 @@ var BlockPool = make([]*block.Block, 0)
 var BlockMsg = make(chan int, 1)
 
 func AcceptBlock() {
-	ticker := time.NewTicker(time.Duration(blockTime) * time.Millisecond)
+	ticker := time.NewTicker(time.Duration(config.DefaultBlockTime) * time.Millisecond)
 
 	for {
 		select {
